@@ -1,0 +1,42 @@
+<div class="auth-wrap pt-5 pb-5">
+  <div class="auth-card">
+    <div class="auth-header text-center">
+      <h1 class="auth-title">Crear cuenta</h1>
+      <p class="auth-subtitle">Completa tus datos para empezar</p>
+    </div>
+
+    <form action="/empezar" method="POST" class="auth-form">
+      
+      <label class="auth-label">Nombre</label>
+      <input 
+        class="form-control auth-input" 
+        name="nombre" 
+        placeholder="Tu nombre" 
+        required 
+      />
+
+      <label class="auth-label mt-2">Correo</label>
+      <input 
+        class="form-control auth-input" 
+        name="correo" 
+        type="email"
+        placeholder="admin@correo.cl" 
+        required 
+      />
+
+      <label class="auth-label mt-2">Contraseña</label>
+      <input 
+        class="form-control auth-input" 
+        name="pass" 
+        type="password" 
+        placeholder="808080" 
+        required 
+      />
+
+      <button class="btn auth-primary w-100 mt-3" type="submit">
+        Crear cuenta y entrar
+      </button>
+
+    </form>
+  </div>
+</div>

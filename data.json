@@ -1,0 +1,100 @@
+{
+  "boards": [
+    {
+      "id": "b1",
+      "name": "Dashboard",
+      "categories": [
+        {
+          "id": "diseno",
+          "name": "Diseño"
+        },
+        {
+          "id": "90163d7f-355f-4e97-b3bb-9292d9783690",
+          "name": "Casa"
+        },
+        {
+          "id": "0356468c-f480-4e95-bd3b-2b010b7403bb",
+          "name": "Pedidos"
+        },
+        {
+          "id": "a3ea34b0-0653-4a5e-b3b8-ae749a447131",
+          "name": "Lucy lu"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "305b510b-f2df-43ef-aa18-38d2315e05a8",
+          "categoryId": "90163d7f-355f-4e97-b3bb-9292d9783690",
+          "title": "Orden taller",
+          "description": "limpiar pinceles y contenedores",
+          "dueDate": "2026-03-06",
+          "status": "doing",
+          "createdAt": "2026-02-27"
+        },
+        {
+          "id": "8e8022de-c2f4-48c9-8c25-0fa353dd1657",
+          "categoryId": "0356468c-f480-4e95-bd3b-2b010b7403bb",
+          "title": "Mercadolibre1",
+          "description": "#13918383",
+          "dueDate": "2026-02-28",
+          "status": "done",
+          "createdAt": "2026-02-27"
+        },
+        {
+          "id": "450965ad-5ee0-44e3-aaba-126b8a79feb9",
+          "categoryId": "a3ea34b0-0653-4a5e-b3b8-ae749a447131",
+          "title": "antiparacitario xd",
+          "description": "no quiere nada",
+          "dueDate": "2026-03-09",
+          "status": "done",
+          "createdAt": "2026-02-27"
+        },
+        {
+          "id": "t1",
+          "categoryId": "diseno",
+          "title": "home estilo",
+          "description": "ajustar colores y textos",
+          "status": "done",
+          "dueDate": "2026-02-28"
+        },
+        {
+          "id": "682c450d-90a7-4c1f-9d91-bf20a9b654b1",
+          "categoryId": "diseno",
+          "title": "revisión",
+          "description": "codigo",
+          "dueDate": "2026-03-06",
+          "status": "done",
+          "createdAt": "2026-02-27"
+        },
+        {
+          "id": "7fd5e9f5-7902-43cd-9c7c-7d419d519569",
+          "categoryId": "diseno",
+          "title": "logo polen",
+          "description": "primera etapa",
+          "dueDate": "2026-03-06",
+          "status": "todo",
+          "createdAt": "2026-02-27"
+        }
+      ]
+    },
+    {
+      "id": "a9050743-7993-42ae-81d8-4c22fd98df34",
+      "name": "342",
+      "categories": [
+        {
+          "id": "d86c6363-04dc-4053-a46e-14aba1be3e89",
+          "name": "Por hacer"
+        },
+        {
+          "id": "24141c75-3c27-4d7d-9461-0b5aa59d4eeb",
+          "name": "En progreso"
+        },
+        {
+          "id": "e9ae5243-5d08-43f7-a779-3b67939c3935",
+          "name": "Hecho"
+        }
+      ],
+      "tasks": []
+    }
+  ]
+}

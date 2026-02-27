@@ -1,0 +1,118 @@
+<div class="auth-wrap">
+  <div class="auth-card text-center">
+    <div class="auth-header">
+      <img src="/img/logouno.svg" alt="KanbanPro" class="kp-logo2">
+      <p class="auth-subtitle">Inicia sesión para continuar</p>
+    </div>
+
+    {{#if error}}
+      <div class="alert alert-warning py-2 mb-3">{{error}}</div>
+    {{/if}}
+
+    <!-- 1) EMAIL -->
+    <form class="auth-form text-start" action="/login-email" method="POST">
+      <label class="auth-label">Correo electrónico</label>
+      <input
+        class="form-control auth-input"
+        name="email"
+        type="email"
+        placeholder="admin@correo.cl"
+        value="{{email}}"
+        required
+      />
+
+      {{#unless showCode}}
+        <button class="btn auth-primary w-100" type="submit">
+          Continuar con correo electrónico
+        </button>
+      {{/unless}}
+    </form>
+
+  <!-- 2) CÓDIGO -->
+{{#if showCode}}
+<form class="auth-form text-start mt-3" action="/login-code" method="POST">
+
+  <input type="hidden" name="email" value="{{email}}" />
+
+  <label class="auth-label">Código (6 dígitos)</label>
+  <input
+    class="form-control auth-input auth-prefill"
+    name="code"
+    inputmode="numeric"
+    pattern="[0-9]{6}"
+    maxlength="6"
+    placeholder="808080"
+    required
+  />
+
+  <button class="btn auth-primary w-100 mt-2" type="submit">
+    Verificar
+  </button>
+
+</form>
+{{/if}}
+
+    <!-- Separador -->
+    <div class="auth-sep-title">
+      <span>o iniciar sesión con</span>
+    </div>
+
+    <!-- Social tiles -->
+    <div class="auth-social-row">
+      <button class="btn auth-social-tile" type="button" data-provider="Google" aria-label="Google">
+  <span class="tile-ico" aria-hidden="true"><i class="bi bi-google"></i></span>
+  <span class="tile-text">Google</span>
+</button>
+
+<button class="btn auth-social-tile" type="button" data-provider="Apple" aria-label="Apple">
+  <span class="tile-ico" aria-hidden="true"><i class="bi bi-apple"></i></span>
+  <span class="tile-text">Apple</span>
+</button>
+
+     <button class="btn auth-social-tile" type="button" data-provider="Microsoft" aria-label="Microsoft">
+  <span class="tile-ico" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="22" height="22">
+      <path fill="#000" d="M2 2h9v9H2z"/>
+      <path fill="#000" d="M13 2h9v9h-9z"/>
+      <path fill="#000" d="M2 13h9v9H2z"/>
+      <path fill="#000" d="M13 13h9v9h-9z"/>
+    </svg>
+  </span>
+  <span class="tile-text">Microsoft</span>
+</button>
+    </div>
+
+    <!-- Modal confirmación Social -->
+    <div class="modal fade" id="socialConfirmModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirmar inicio de sesión</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+
+          <div class="modal-body">
+            <p class="mb-0">
+              ¿Aceptas continuar con <strong id="socialProviderName">Google</strong>?
+            </p>
+            <small class="text-secondary">
+              Serás redirigido para autenticarte con la cuenta seleccionada.
+            </small>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-dark" id="socialAcceptBtn">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth-footer justify-content-center mt-3">
+      <span>¿Primera vez en KanbanPro?</span>
+      <a class="auth-link" href="/empezar">Empezar →</a>
+    </div>
+  </div>
+</div>
+
+<script src="/js/login.js"></script>

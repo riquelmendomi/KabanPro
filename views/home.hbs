@@ -1,0 +1,119 @@
+{{!-- views/home.hbs --}}
+
+<!-- HERO -->
+<section class="trello-hero">
+  <div class="container hero-pad">
+    <div class="row align-items-center g-5">
+
+      <!-- LEFT -->
+      <div class="col-lg-6">
+        <h1 class="hero-title mb-3">
+          Organiza tus tareas sin perderte en el caos.
+        </h1>
+        <p class="hero-subtitle mb-4">
+          KanbanPro te ayuda a visualizar el trabajo, priorizar y avanzar. Simple, rápido y en español.
+        </p>
+
+        <!-- Email + CTA -->
+        <form class="hero-form d-flex flex-column flex-sm-row gap-2 mb-2" action="/empezar" method="GET">
+          <input type="email" name="email" class="form-control form-control-lg hero-input" placeholder="ingresa admin@correo.cl" aria-label="Email" required />
+          <button class="btn btn-primary btn-lg px-4 hero-cta" type="submit">crear cuenta</button>
+        </form>
+
+        <small class="text-muted d-block mb-4 hero-legal">
+          al ingresar mi email, acepto la
+          <a href="#" class="link-primary text-decoration-none">política de privacidad</a>.
+        </small>
+
+        <a href="#" class="hero-video d-inline-flex align-items-center gap-2 text-decoration-none">
+          <span class="play-pill d-inline-flex align-items-center justify-content-center" aria-hidden="true">▶</span>
+          <span class="link-primary fw-semibold">ver video</span>
+        </a>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="col-lg-6">
+        <div class="hero-visual position-relative mx-auto">
+          <img src="/img/hero-phone.png" alt="Vista de KanbanPro" class="hero-phone img-fluid" />
+
+          <!-- Iconos Bootstrap -->
+          <span class="float-ico ico-1" aria-hidden="true"><i class="bi bi-kanban"></i></span>
+          <span class="float-ico ico-2" aria-hidden="true"><i class="bi bi-check2-square"></i></span>
+          <span class="float-ico ico-3" aria-hidden="true"><i class="bi bi-people"></i></span>
+          <span class="float-ico ico-4" aria-hidden="true"><i class="bi bi-calendar-event"></i></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONES -->
+<section id="funciones" class="py-5 border-top">
+  <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-4">
+        <h2 class="h4 fw-semibold">Funciones principales</h2>
+        <p class="text-secondary mb-0">
+          Lo esencial para gestionar tareas como persona seria (o al menos intentarlo).
+        </p>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <div class="kp-feature p-3">
+              <div class="fw-semibold mb-1">Tableros Kanban</div>
+              <div class="text-secondary small">Organiza tus tareas: por hacer, en progreso, completadas.</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="kp-feature p-3">
+              <div class="fw-semibold mb-1">Tarjetas de tareas</div>
+              <div class="text-secondary small">Crea tareas rápidas, claras y fáciles de mover.</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="kp-feature p-3">
+              <div class="fw-semibold mb-1">Responsables</div>
+              <div class="text-secondary small">Asigna quién hace qué, sin telepatía.</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="kp-feature p-3">
+              <div class="fw-semibold mb-1">Fechas límite</div>
+              <div class="text-secondary small">Define vencimientos para que el tiempo no te gane.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="py-5 border-top">
+  <div class="container">
+    <div class="kp-cta p-4 p-md-5">
+      <div class="row align-items-center g-3">
+
+        <div class="col-lg-8">
+          <h3 class="h4 fw-semibold mb-1">¿Listo para ordenar el caos?</h3>
+          <p class="text-secondary mb-0">Entra y empieza tu primer tablero.</p>
+        </div>
+
+        <div class="col-lg-4 text-lg-end">
+          <a href="/empezar" class="btn btn-dark px-4">Comenzar</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

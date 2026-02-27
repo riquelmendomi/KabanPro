@@ -1,0 +1,300 @@
+<div class="container py-4">
+
+  {{#if board}}
+    <h1 class="mb-4">{{board.name}}</h1>
+
+    <div class="kanban-board">
+
+      {{#each columns}}
+        <div class="kanban-col">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <div class="d-flex align-items-center gap-2">
+              <h5 class="mb-0">{{this.name}}</h5>
+              <div class="category-count">{{this.tasks.length}}</div>
+            </div>
+            <div class="dropdown">
+              <button class="dropdown-toggle" type="button">⋯</button>
+              <div class="dropdown-menu dropdown-menu-end p-3" style="min-width: 260px;">
+                <div class="small text-muted mb-2">opciones de categoría</div>
+                <form method="POST" action="/renombrar-categoria" class="mb-2">
+                  <input type="hidden" name="categoryId" value="{{this.id}}" />
+                  <input class="form-control form-control-sm mb-2" name="name" placeholder="nuevo nombre" />
+                  <button class="btn btn-sm w-100" type="submit">cambiar nombre</button>
+                </form>
+                <hr class="my-2" />
+                <form method="POST" action="/eliminar-categoria" onsubmit="return confirm('¿eliminar esta categoría y sus tareas?');">
+                  <input type="hidden" name="categoryId" value="{{this.id}}" />
+                  <button class="btn btn-sm w-100 text-danger" type="submit">eliminar categoría</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="vstack gap-3 mb-3">
+            {{#if this.tasks.length}}
+              {{#each this.tasks}}
+                <div class="task-card" data-id="{{this.id}}">
+                  <form method="POST" action="/cambiar-estado" class="task-status d-flex gap-1 mb-1">
+                    <input type="hidden" name="taskId" value="{{this.id}}" />
+                    <button class="dot dot-todo {{this.status}}" name="status" value="todo" type="submit"></button>
+                    <button class="dot dot-doing {{this.status}}" name="status" value="doing" type="submit"></button>
+                    <button class="dot dot-done {{this.status}}" name="status" value="done" type="submit"></button>
+                  </form>
+                  <div class="task-top d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="task-title">{{this.title}}</div>
+                      {{#if this.description}}<div class="task-desc">{{this.description}}</div>{{/if}}
+                      <div class="task-meta">
+                        <span>creada: {{this.createdAt}}</span>
+                        {{#if this.dueDate}}<span>límite: {{this.dueDate}}</span>{{/if}}
+                      </div>
+                    </div>
+
+                    <div class="dropdown task-options ms-2">
+                      <button class="dropdown-toggle" type="button">⋯</button>
+                      <div class="dropdown-menu dropdown-menu-end p-2">
+                        <form method="POST" action="/editar-tarea" class="mb-2">
+                          <input type="hidden" name="taskId" value="{{this.id}}" />
+                          <input class="form-control form-control-sm mb-1" name="title" placeholder="nuevo título" />
+                          <input class="form-control form-control-sm mb-1" name="description" placeholder="descripción" />
+                          <input type="date" class="form-control form-control-sm mb-1" name="dueDate" value="{{this.dueDate}}" />
+                          <button class="btn btn-sm w-100" type="submit">guardar</button>
+                        </form>
+                        <hr class="my-1"/>
+                        <form method="POST" action="/eliminar-tarea" onsubmit="return confirm('¿Eliminar esta tarea?');">
+                          <input type="hidden" name="taskId" value="{{this.id}}" />
+                          <button class="btn btn-sm w-100 text-danger" type="submit">eliminar tarea</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            {{else}}
+              <div class="empty-text">sin tareas todavía</div>
+            {{/if}}
+          </div>
+
+          <div class="mt-2">
+            <button class="btn notion-newpage w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#newTask-{{this.id}}">
+              + Nueva tarea
+            </button>
+            <div class="collapse mt-2" id="newTask-{{this.id}}">
+              <form method="POST" action="/nueva-tarea" class="add-form p-2">
+                <input type="hidden" name="categoryId" value="{{this.id}}" />
+                <input class="form-control notion-input mb-2" name="title" placeholder="tarea" required />
+                <input class="form-control notion-input mb-2" name="description" placeholder="descripción (opcional)" />
+                <label class="small text-muted">fecha límite</label>
+                <input type="date" class="form-control notion-input mb-2" name="dueDate" />
+                <select class="form-select notion-input mb-2" name="status">
+                  <option value="todo">por hacer</option>
+                  <option value="doing">en progreso</option>
+                  <option value="done">hecho</option>
+                </select>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-dark notion-btn flex-grow-1" type="submit">crear</button>
+                  <button class="btn btn-light notion-cancel" type="button" data-bs-toggle="collapse" data-bs-target="#newTask-{{this.id}}">cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      {{/each}}
+
+     <!-- Nueva columna -->
+<div class="kanban-col d-flex flex-column align-items-center justify-content-start" style="min-width: 280px;">
+  <button class="btn notion-newpage w-100 py-4 text-center mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#newCategoryForm">
+    + Agregar columna
+  </button>
+
+  <div class="collapse w-100" id="newCategoryForm">
+    <form method="POST" action="/nueva-categoria" class="add-form p-2">
+      <input class="form-control mb-2" name="name" placeholder="Nombre de la columna" required />
+      <div class="d-flex gap-2">
+        <button class="btn btn-dark flex-grow-1" type="submit">crear</button>
+        <button class="btn btn-light flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="#newCategoryForm">cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+    </div>
+
+  {{else}}
+    <div class="alert alert-warning text-center py-4">
+      ¡Ups! Parece que aún no tienes ningún tablero. <br>
+      Crea tu primer tablero y empieza a organizar tus tareas.
+    </div>
+  {{/if}}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* DROPDOWNS */
+  const dd = {
+    closeAll() {
+      document.querySelectorAll(".dropdown-menu.show").forEach(menu => {
+        menu.classList.remove("show");
+
+        const phId = menu.dataset.placeholderId;
+        if (phId) {
+          const ph = document.getElementById(phId);
+          if (ph) ph.replaceWith(menu);
+          delete menu.dataset.placeholderId;
+          menu.style.position = "";
+          menu.style.left = "";
+          menu.style.top = "";
+          menu.style.zIndex = "";
+          menu.style.visibility = "";
+        }
+      });
+    },
+
+    open(btn, menu) {
+      this.closeAll();
+
+      // placeholder
+      const phId = "kp-ph-" + Math.random().toString(16).slice(2);
+      const placeholder = document.createElement("span");
+      placeholder.id = phId;
+
+      if (menu.parentNode) menu.parentNode.insertBefore(placeholder, menu);
+
+      // portal al body
+      menu.dataset.placeholderId = phId;
+      document.body.appendChild(menu);
+
+      menu.style.position = "fixed";
+      menu.style.zIndex = "99999";
+      menu.style.visibility = "hidden";
+      menu.classList.add("show");
+
+      requestAnimationFrame(() => {
+        const r = btn.getBoundingClientRect();
+        const w = menu.offsetWidth || 260;
+
+        let left = r.right - w;
+        if (left < 8) left = 8;
+
+        const maxLeft = window.innerWidth - w - 8;
+        if (left > maxLeft) left = Math.max(8, maxLeft);
+
+        menu.style.top = `${r.bottom + 8}px`;
+        menu.style.left = `${left}px`;
+        menu.style.visibility = "";
+      });
+    },
+
+    init() {
+      document.querySelectorAll(".dropdown").forEach((wrap, i) => {
+        const btn = wrap.querySelector(".dropdown-toggle");
+        const menu = wrap.querySelector(".dropdown-menu");
+        if (!btn || !menu) return;
+
+        if (!menu.id) menu.id = `kp-dd-${i}-${Math.random().toString(16).slice(2)}`;
+        btn.dataset.menuId = menu.id;
+
+        menu.addEventListener("click", (e) => e.stopPropagation());
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+
+          const theMenu = document.getElementById(btn.dataset.menuId);
+          if (!theMenu) return;
+
+          const isOpen = theMenu.classList.contains("show");
+          if (isOpen) return this.closeAll();
+
+          this.open(btn, theMenu);
+        });
+      });
+
+      document.addEventListener("click", () => this.closeAll());
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") this.closeAll(); });
+      window.addEventListener("scroll", () => this.closeAll(), true);
+      window.addEventListener("resize", () => this.closeAll());
+    }
+  };
+
+  dd.init();
+
+  /* DRAG & DROP */
+  const colors = ["#ff595e","#ffca3a","#8ac926","#1982c4","#6a4c93"];
+  document.querySelectorAll(".dot").forEach(dot => {
+    dot.addEventListener("click", e => {
+      e.preventDefault();
+      let idx = (colors.indexOf(dot.style.backgroundColor)+1) % colors.length;
+      dot.style.backgroundColor = colors[idx];
+      dot.closest("form").requestSubmit(dot);
+    });
+  });
+
+  function initDrag() {
+    const cards = document.querySelectorAll(".task-card");
+    cards.forEach(card => {
+      card.setAttribute("draggable",true);
+      card.addEventListener("dragstart",()=>card.classList.add("dragging"));
+      card.addEventListener("dragend",()=>card.classList.remove("dragging"));
+    });
+
+    document.querySelectorAll(".kanban-col").forEach(col => {
+      col.addEventListener("dragover", e => {
+        e.preventDefault();
+        const vstack = col.querySelector(".vstack");
+        if(!vstack) return;
+        const after = getDragAfterElement(col, e.clientY);
+        const dragging = document.querySelector(".dragging");
+        if(!after) vstack.appendChild(dragging);
+        else vstack.insertBefore(dragging, after);
+      });
+    });
+
+    function getDragAfterElement(container,y){
+      const draggable = [...container.querySelectorAll(".task-card:not(.dragging)")];
+      return draggable.reduce((closest,child)=>{
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height/2;
+        if(offset<0 && offset>closest.offset) return {offset, element:child};
+        return closest;
+      },{offset:Number.NEGATIVE_INFINITY}).element;
+    }
+  }
+
+  const cards = document.querySelectorAll(".task-card");
+  cards.forEach(card => {
+    card.setAttribute("draggable", true);
+
+    card.addEventListener("dragstart", () => card.classList.add("dragging"));
+
+    card.addEventListener("dragend", async () => {
+      card.classList.remove("dragging");
+
+      const col = card.closest(".kanban-col");
+      const vstack = col?.querySelector(".vstack");
+      if (!vstack) return;
+
+      const catInput = col.querySelector('input[name="categoryId"]');
+      if (!catInput) return;
+      const categoryId = catInput.value;
+
+      const position = [...vstack.querySelectorAll(".task-card")].indexOf(card);
+      const taskId = card.dataset.id;
+
+      try {
+        await fetch("/orden-tareas", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ taskId, categoryId, position }).toString()
+        });
+      } catch (e) {
+        console.error("Error guardando orden:", e);
+      }
+    });
+  });
+
+  initDrag();
+});
+</script>
